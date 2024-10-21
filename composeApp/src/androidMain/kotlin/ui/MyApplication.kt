@@ -1,4 +1,4 @@
-package com.alican.puddi
+package ui
 
 import android.app.Application
 import di.initKoin

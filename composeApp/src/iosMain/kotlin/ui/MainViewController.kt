@@ -1,4 +1,4 @@
-package com.alican.puddi
+package ui
 
 import androidx.compose.ui.window.ComposeUIViewController
 import di.initKoin
