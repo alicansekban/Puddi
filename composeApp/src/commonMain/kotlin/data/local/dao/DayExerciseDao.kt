@@ -9,7 +9,10 @@ interface DayExerciseDao {
 
     // Gün ekleme
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun insertDay(day: Day)
+    suspend fun insertDays(days: List<Day>) // Liste şeklinde ekleme
+
+    @Query("SELECT COUNT(*) FROM days")
+    suspend fun getDaysCount(): Int
 
     // Egzersiz ekleme
     @Insert(onConflict = OnConflictStrategy.REPLACE)
