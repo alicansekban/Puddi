@@ -39,11 +39,16 @@ kotlin {
             // koin android
             implementation(libs.koin.android)
             implementation(libs.koin.androidx.compose)
+
+            // ktor android
+            implementation(libs.ktor.client.android)
+            implementation(libs.ktor.client.okhttp)
         }
         commonMain.dependencies {
             implementation(compose.runtime)
             implementation(compose.foundation)
             implementation(compose.material)
+            implementation(compose.material3)
             implementation(compose.ui)
             implementation(compose.components.resources)
             implementation(compose.components.uiToolingPreview)
@@ -56,6 +61,8 @@ kotlin {
 
             implementation(libs.kotlinx.coroutines.core)
 
+            //ktor
+            implementation(libs.bundles.ktor)
 
             // koin
             api(libs.koin.core)
@@ -70,6 +77,13 @@ kotlin {
 
             implementation(libs.room.runtime)
             implementation(libs.sqlite.bundled)
+
+            implementation("org.jetbrains.kotlinx:kotlinx-datetime:0.6.0")
+
+        }
+        iosMain.dependencies {
+            // ktor ios
+            implementation(libs.ktor.client.darwin)
         }
     }
 }
@@ -105,6 +119,7 @@ room {
 }
 
 dependencies {
+    implementation(libs.androidx.material3.android)
     ksp(libs.room.compiler)
 }
 
