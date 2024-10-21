@@ -1,7 +1,7 @@
 package di
 
 import database.getAppDatabase
-import local.AppDatabase
+import data.local.AppDatabase
 import org.koin.core.module.Module
 import org.koin.dsl.module
 

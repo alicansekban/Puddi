@@ -3,7 +3,7 @@ package database
 import android.content.Context
 import androidx.room.Room
 import androidx.sqlite.driver.bundled.BundledSQLiteDriver
-import local.AppDatabase
+import data.local.AppDatabase
 
 
 fun getAppDatabase(context: Context): AppDatabase {

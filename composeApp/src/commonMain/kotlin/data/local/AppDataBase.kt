@@ -1,11 +1,11 @@
-package local
+package data.local
 
 import androidx.room.ConstructedBy
 import androidx.room.Database
 import androidx.room.RoomDatabase
 import androidx.room.RoomDatabaseConstructor
-import local.dao.MovieDao
-import local.entity.MovieEntity
+import data.local.dao.MovieDao
+import data.local.entity.MovieEntity
 
 @Database(entities = [MovieEntity::class], version = 1)
 @ConstructedBy(AppDatabaseConstructor::class)
