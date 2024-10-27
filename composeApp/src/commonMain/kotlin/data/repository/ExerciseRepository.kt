@@ -1,6 +1,6 @@
 import data.dataSource.ExerciseLocalDataSource
 import data.dataSource.ExerciseRemoteDataSource
-import data.response.ExerciseResponse
+import data.response.ExerciseResponseItem
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.IO
 import kotlinx.coroutines.flow.Flow
@@ -13,7 +13,7 @@ class ExerciseRepository(
     private val remoteDataSource: ExerciseRemoteDataSource
 ) {
 
-    fun getExercisesFromRemote(limit: Int) : Flow<ResultWrapper<ExerciseResponse>> {
+    fun getExercisesFromRemote(limit: Int) : Flow<ResultWrapper<List<ExerciseResponseItem>>> {
         return flow {
             emit(remoteDataSource.getExercise(limit))
         }.flowOn(Dispatchers.IO)

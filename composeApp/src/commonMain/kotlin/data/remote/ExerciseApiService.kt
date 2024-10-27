@@ -1,6 +1,6 @@
 package data.remote
 
-import data.response.ExerciseResponse
+import data.response.ExerciseResponseItem
 import io.ktor.client.HttpClient
 import io.ktor.client.call.body
 import io.ktor.client.request.get
@@ -15,11 +15,11 @@ class ExerciseApiService(
     private val client: HttpClient
 ) {
 
-    suspend fun getExerciseList(limit: Int): ResultWrapper<ExerciseResponse> =
+    suspend fun getExerciseList(limit: Int): ResultWrapper<List<ExerciseResponseItem>> =
         safeApiCall(Dispatchers.IO) {
             client.get {
                 url {
-                    appendPathSegments("exercise", )
+                    appendPathSegments("exercises", )
                     parameters.append("limit", limit.toString())
                 }
             }.body()

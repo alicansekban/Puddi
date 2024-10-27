@@ -16,9 +16,9 @@ class HomeInteractor(
                 when (state) {
                     is utils.ResultWrapper.GenericError -> emit(BaseUIModel.Error(message = state.error ?: ""))
                     is utils.ResultWrapper.Success -> {
-                        val exercises = state.value.exerciseResponse?.map {
+                        val exercises = state.value.map {
                             it.name ?: ""
-                        } ?: emptyList()
+                        }
                         emit(BaseUIModel.Success(exercises))
                     }
                 }

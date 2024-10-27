@@ -7,6 +7,7 @@ import domain.interactor.HomeInteractor
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.stateIn
+import kotlinx.coroutines.launch
 
 class HomeScreenViewModel(
     private val interactor: HomeInteractor
@@ -14,5 +15,17 @@ class HomeScreenViewModel(
 
     private val _uiState = MutableStateFlow<BaseUIModel<List<String>>>(BaseUIModel.Loading)
     val uiState = _uiState.stateIn(viewModelScope, SharingStarted.Eagerly, BaseUIModel.Loading)
+
+    init {
+        getExercise()
+    }
+
+    private fun getExercise() {
+        viewModelScope.launch {
+            interactor.getExercises(100).collect{state ->
+                _uiState.emit(state)
+            }
+        }
+    }
 
 }
