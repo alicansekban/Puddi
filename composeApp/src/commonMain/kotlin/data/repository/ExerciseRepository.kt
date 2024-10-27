@@ -21,5 +21,7 @@ class ExerciseRepository(
 
     suspend fun insertDays() = localDataSource.insertDays()
 
-    suspend fun getExercisesFromLocal() = localDataSource.getExercises()
+     fun getExercisesFromLocal() = localDataSource.getExercises()
+
+    fun  getDayWithExercises(dayId: Int) = localDataSource.getDayWithExercises(dayId)
 }

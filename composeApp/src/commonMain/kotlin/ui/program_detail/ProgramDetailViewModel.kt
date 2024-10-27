@@ -1,4 +1,4 @@
-package ui.program
+package ui.program_detail
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -10,21 +10,18 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 
-class ProgramViewModel(
+class ProgramDetailViewModel(
     private val interactor: ProgramInteractor
-) : ViewModel(){
-    private val _days = MutableStateFlow<List<DayWithExercises>>(emptyList())
-    val days = _days.asStateFlow()
+) : ViewModel() {
 
-    init {
-        getDays()
-    }
+    private val _dayDetail = MutableStateFlow<DayWithExercises?>(null)
+    val dayDetail = _dayDetail.asStateFlow()
 
-    private fun getDays() {
-        viewModelScope.launch(Dispatchers.IO) {
-            interactor.getDays().collect{ daysList ->
-                _days.emit(daysList)
-            }
-        }
+    fun getProgramDetail(id: Int) {
+         viewModelScope.launch(Dispatchers.IO) {
+             interactor.getDayWithExercises(id).collect{
+                 _dayDetail.emit(it)
+             }
+         }
     }
 }

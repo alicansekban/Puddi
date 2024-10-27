@@ -14,3 +14,6 @@ object ProgramHost
 @Serializable
 object ProgramRoute
 
+@Serializable
+data class ProgramDetailRoute(val dayId: Int)
+

@@ -1,6 +1,7 @@
 package ui.program
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.Text
@@ -15,12 +16,15 @@ import org.koin.compose.viewmodel.koinViewModel
 fun ProgramScreen(
     modifier: Modifier = Modifier,
     viewModel: ProgramViewModel = koinViewModel(),
+    openProgramDetail : (dayId: Int) -> Unit
 ) {
 
     val days by viewModel.days.collectAsStateWithLifecycle()
     Column(modifier = modifier.fillMaxSize().background(Color.White)) {
         days.forEach { day ->
-            Text(text = day.day.dayName)
+            Text(text = day.day.dayName, modifier = Modifier.clickable {
+                openProgramDetail.invoke(day.day.id)
+            })
         }
     }
 }

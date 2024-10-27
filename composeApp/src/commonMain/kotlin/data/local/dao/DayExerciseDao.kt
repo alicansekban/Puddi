@@ -23,12 +23,12 @@ interface DayExerciseDao {
     // Günün egzersizlerini çekme
     @Transaction
     @Query("SELECT * FROM days WHERE id = :dayId")
-    suspend fun getDayWithExercises(dayId: Int): DayWithExercises
+    fun getDayWithExercises(dayId: Int): Flow<DayWithExercises>
 
     // Tüm günleri ve onların egzersizlerini çekme
     @Transaction
     @Query("SELECT * FROM days")
-     fun getAllDaysWithExercises(): Flow<List<DayWithExercises>>
+    fun getAllDaysWithExercises(): Flow<List<DayWithExercises>>
 
     // Egzersiz silme
     @Delete

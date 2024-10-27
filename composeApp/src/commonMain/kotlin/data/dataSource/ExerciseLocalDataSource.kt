@@ -26,8 +26,12 @@ class ExerciseLocalDataSource(
         }
     }
 
-    suspend fun getExercises() : Flow<List<DayWithExercises>> {
+     fun getExercises() : Flow<List<DayWithExercises>> {
         return db.getDao().getAllDaysWithExercises()
+    }
+
+    fun getDayWithExercises(dayId : Int) : Flow<DayWithExercises> {
+        return db.getDao().getDayWithExercises(dayId)
     }
 
 }
