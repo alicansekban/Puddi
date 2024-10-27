@@ -18,4 +18,8 @@ class ExerciseRepository(
             emit(remoteDataSource.getExercise(limit))
         }.flowOn(Dispatchers.IO)
     }
+
+    suspend fun insertDays() = localDataSource.insertDays()
+
+    suspend fun getExercisesFromLocal() = localDataSource.getExercises()
 }

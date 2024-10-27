@@ -25,4 +25,7 @@ class HomeInteractor(
             }
         }
     }
+    suspend fun insertDays() {
+        repository.insertDays()
+    }
 }

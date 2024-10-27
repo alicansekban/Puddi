@@ -4,6 +4,8 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import domain.BaseUIModel
 import domain.interactor.HomeInteractor
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.IO
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.stateIn
@@ -18,6 +20,7 @@ class HomeScreenViewModel(
 
     init {
         getExercise()
+        insertDays()
     }
 
     private fun getExercise() {
@@ -28,4 +31,9 @@ class HomeScreenViewModel(
         }
     }
 
+    private fun insertDays() {
+        viewModelScope.launch(Dispatchers.IO) {
+            interactor.insertDays()
+        }
+    }
 }

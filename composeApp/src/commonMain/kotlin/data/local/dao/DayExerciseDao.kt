@@ -4,6 +4,8 @@ import androidx.room.*
 import data.local.entity.Day
 import data.local.entity.DayWithExercises
 import data.local.entity.Exercise
+import kotlinx.coroutines.flow.Flow
+
 @Dao
 interface DayExerciseDao {
 
@@ -26,7 +28,7 @@ interface DayExerciseDao {
     // Tüm günleri ve onların egzersizlerini çekme
     @Transaction
     @Query("SELECT * FROM days")
-    suspend fun getAllDaysWithExercises(): List<DayWithExercises>
+     fun getAllDaysWithExercises(): Flow<List<DayWithExercises>>
 
     // Egzersiz silme
     @Delete
