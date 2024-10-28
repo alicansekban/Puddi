@@ -1,6 +1,7 @@
 package domain.interactor
 
 import ExerciseRepository
+import data.local.entity.DayWithExercises
 import domain.BaseUIModel
 import domain.mapper.toUIModel
 import domain.model.ExerciseUIModel
@@ -29,5 +30,9 @@ class HomeInteractor(
     }
     suspend fun insertDays() {
         repository.insertDays()
+    }
+
+     fun getDays(): Flow<List<DayWithExercises>> {
+        return repository.getExercisesFromLocal()
     }
 }

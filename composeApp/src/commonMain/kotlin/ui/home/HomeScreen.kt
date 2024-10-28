@@ -18,6 +18,7 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import data.local.entity.DayWithExercises
 import domain.model.ExerciseUIModel
 import org.koin.compose.viewmodel.koinViewModel
 
@@ -28,6 +29,7 @@ fun HomeScreen(
 ) {
 
     val homeData by viewModel.uiState.collectAsStateWithLifecycle()
+    val days by viewModel.days.collectAsStateWithLifecycle()
     Column(
         modifier = Modifier.fillMaxSize().background(Color.White)
             .verticalScroll(rememberScrollState())
@@ -44,7 +46,8 @@ fun HomeScreen(
                             .padding(horizontal = 16.dp, vertical = 8.dp)
                             .clip(RoundedCornerShape(10.dp))
                             .background(Color.Gray)
-                            .fillMaxWidth()
+                            .fillMaxWidth(),
+                        days = days
 
                     )
                 }
@@ -56,7 +59,8 @@ fun HomeScreen(
 @Composable
 fun ExerciseListItem(
     modifier: Modifier = Modifier,
-    exercise: ExerciseUIModel
+    exercise: ExerciseUIModel,
+    days:List<DayWithExercises>
 ) {
     Row(modifier = modifier, horizontalArrangement = Arrangement.SpaceBetween) {
         Column(modifier=Modifier.padding(start = 8.dp),verticalArrangement = Arrangement.spacedBy(10.dp)) {

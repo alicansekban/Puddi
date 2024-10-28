@@ -2,6 +2,7 @@ package ui.home
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import data.local.entity.DayWithExercises
 import domain.BaseUIModel
 import domain.interactor.HomeInteractor
 import domain.model.ExerciseUIModel
@@ -19,9 +20,21 @@ class HomeScreenViewModel(
     private val _uiState = MutableStateFlow<BaseUIModel<List<ExerciseUIModel>>>(BaseUIModel.Loading)
     val uiState = _uiState.stateIn(viewModelScope, SharingStarted.Eagerly, BaseUIModel.Loading)
 
+    private val _days = MutableStateFlow<List<DayWithExercises>>(emptyList())
+    val days = _days.stateIn(viewModelScope, SharingStarted.Eagerly, emptyList())
+
     init {
         getExercise()
         insertDays()
+        getDays()
+    }
+
+    private fun getDays() {
+        viewModelScope.launch(Dispatchers.IO) {
+            interactor.getDays().collect{
+                _days.emit(it)
+            }
+        }
     }
 
     private fun getExercise() {
