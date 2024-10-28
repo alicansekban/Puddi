@@ -2,6 +2,8 @@ package domain.interactor
 
 import ExerciseRepository
 import domain.BaseUIModel
+import domain.mapper.toUIModel
+import domain.model.ExerciseUIModel
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 
@@ -9,7 +11,7 @@ class HomeInteractor(
     private val repository: ExerciseRepository
 ) {
 
-    fun getExercises(limit: Int): Flow<BaseUIModel<List<String>>> {
+    fun getExercises(limit: Int): Flow<BaseUIModel<List<ExerciseUIModel>>> {
         return flow {
             emit(BaseUIModel.Loading)
             repository.getExercisesFromRemote(limit).collect{state ->
@@ -17,7 +19,7 @@ class HomeInteractor(
                     is utils.ResultWrapper.GenericError -> emit(BaseUIModel.Error(message = state.error ?: ""))
                     is utils.ResultWrapper.Success -> {
                         val exercises = state.value.map {
-                            it.name ?: ""
+                            it.toUIModel()
                         }
                         emit(BaseUIModel.Success(exercises))
                     }
