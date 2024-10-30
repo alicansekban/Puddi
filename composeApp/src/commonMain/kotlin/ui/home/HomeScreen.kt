@@ -30,6 +30,7 @@ import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import components.DaySelectionBottomSheet
 import data.local.entity.DayWithExercises
+import data.local.entity.Exercise
 import domain.model.ExerciseUIModel
 import org.koin.compose.viewmodel.koinViewModel
 
@@ -53,7 +54,10 @@ fun HomeScreen(
                 data.forEach {
                     ExerciseListItem(
                         exercise = it,
-                        days = days
+                        days = days,
+                        saveExercise = {exercise ->
+                            viewModel.insertExercise(exercise)
+                        }
 
                     )
                 }
@@ -67,7 +71,7 @@ fun ExerciseListItem(
     modifier: Modifier = Modifier,
     exercise: ExerciseUIModel,
     days:List<DayWithExercises>,
-    saveExercise : () -> Unit = {}
+    saveExercise : (Exercise) -> Unit = {}
 ) {
     var showDayBottomSheet by rememberSaveable {
         mutableStateOf(false)
@@ -75,7 +79,17 @@ fun ExerciseListItem(
     if (showDayBottomSheet) {
         DaySelectionBottomSheet(
             days = days,
-            onDismissRequest = { showDayBottomSheet = false }
+            onDismissRequest = { showDayBottomSheet = false },
+            onDaySelected = {
+                val exerciseToSave = Exercise(
+                    dayId = it.day.id,
+                    title = exercise.name,
+                    duration = 10,
+                    image = exercise.mediaUrl
+                )
+                saveExercise.invoke(exerciseToSave)
+                showDayBottomSheet = false
+            }
         )
     }
     Card(

@@ -3,6 +3,7 @@ package ui.home
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import data.local.entity.DayWithExercises
+import data.local.entity.Exercise
 import domain.BaseUIModel
 import domain.interactor.HomeInteractor
 import domain.model.ExerciseUIModel
@@ -48,6 +49,11 @@ class HomeScreenViewModel(
     private fun insertDays() {
         viewModelScope.launch(Dispatchers.IO) {
             interactor.insertDays()
+        }
+    }
+     fun insertExercise(exercise: Exercise) {
+        viewModelScope.launch(Dispatchers.IO) {
+            interactor.insertExercise(exercise)
         }
     }
 }

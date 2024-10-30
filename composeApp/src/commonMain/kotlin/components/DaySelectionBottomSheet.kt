@@ -1,18 +1,23 @@
 package components
 
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.padding
 import androidx.compose.material.BottomDrawer
 import androidx.compose.material.BottomSheetValue
 import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.material.ModalBottomSheetValue
 import androidx.compose.material.rememberBottomSheetState
 import androidx.compose.material.rememberModalBottomSheetState
+import androidx.compose.material3.Card
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.ModalBottomSheet
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import data.local.entity.DayWithExercises
@@ -22,9 +27,9 @@ import data.local.entity.DayWithExercises
 fun DaySelectionBottomSheet(
     modifier: Modifier = Modifier,
     days: List<DayWithExercises>,
-    onDismissRequest: () -> Unit
+    onDismissRequest: () -> Unit,
+    onDaySelected: (DayWithExercises) -> Unit
 ) {
-    val state = rememberModalBottomSheetState(initialValue = ModalBottomSheetValue.Hidden)
 
     ModalBottomSheet(
         modifier = modifier.fillMaxWidth(),
@@ -32,11 +37,17 @@ fun DaySelectionBottomSheet(
     ) {
         Column(
             modifier = Modifier.fillMaxWidth(),
-            verticalArrangement = Arrangement.spacedBy(8.dp)
+            verticalArrangement = Arrangement.spacedBy(8.dp),
+            horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            days.forEach { day ->
-                Text(day.day.dayName)
-            }
+                days.forEach { day ->
+                    Card {
+                        Text(day.day.dayName,modifier = Modifier.padding(8.dp).clickable {
+                            onDaySelected.invoke(day)
+                        })
+                    }
+                }
+
         }
     }
 }

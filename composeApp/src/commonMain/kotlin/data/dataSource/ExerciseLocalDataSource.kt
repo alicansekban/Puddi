@@ -3,6 +3,7 @@ package data.dataSource
 import data.local.AppDatabase
 import data.local.entity.Day
 import data.local.entity.DayWithExercises
+import data.local.entity.Exercise
 import kotlinx.coroutines.flow.Flow
 
 class ExerciseLocalDataSource(
@@ -32,6 +33,10 @@ class ExerciseLocalDataSource(
 
     fun getDayWithExercises(dayId : Int) : Flow<DayWithExercises> {
         return db.getDao().getDayWithExercises(dayId)
+    }
+
+    suspend fun insertExercise(exercise: Exercise) {
+        db.getDao().insertExercise(exercise)
     }
 
 }

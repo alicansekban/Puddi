@@ -1,5 +1,6 @@
 import data.dataSource.ExerciseLocalDataSource
 import data.dataSource.ExerciseRemoteDataSource
+import data.local.entity.Exercise
 import data.response.ExerciseResponseItem
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.IO
@@ -24,4 +25,6 @@ class ExerciseRepository(
      fun getExercisesFromLocal() = localDataSource.getExercises()
 
     fun  getDayWithExercises(dayId: Int) = localDataSource.getDayWithExercises(dayId)
+
+    suspend fun insertExercise(exercise: Exercise) = localDataSource.insertExercise(exercise)
 }
