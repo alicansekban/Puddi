@@ -1,16 +1,20 @@
 package ui.home
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.Text
+import androidx.compose.material3.Card
+import androidx.compose.material3.CardDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
@@ -42,11 +46,6 @@ fun HomeScreen(
                 data.forEach {
                     ExerciseListItem(
                         exercise = it,
-                        modifier = Modifier
-                            .padding(horizontal = 16.dp, vertical = 8.dp)
-                            .clip(RoundedCornerShape(10.dp))
-                            .background(Color.Gray)
-                            .fillMaxWidth(),
                         days = days
 
                     )
@@ -62,13 +61,22 @@ fun ExerciseListItem(
     exercise: ExerciseUIModel,
     days:List<DayWithExercises>
 ) {
-    Row(modifier = modifier, horizontalArrangement = Arrangement.SpaceBetween) {
-        Column(modifier=Modifier.padding(start = 8.dp),verticalArrangement = Arrangement.spacedBy(10.dp)) {
+    Card(
+        modifier = modifier.fillMaxWidth().height(100.dp)
+            .padding(horizontal = 16.dp, vertical = 8.dp),
+        shape = RoundedCornerShape(10.dp),
+        elevation = CardDefaults.cardElevation(10.dp),
+        colors = CardDefaults.cardColors(Color.White)
+    ) {
+        Row(modifier = modifier, horizontalArrangement = Arrangement.SpaceBetween) {
+            Column(modifier=Modifier.padding(start = 8.dp),verticalArrangement = Arrangement.spacedBy(10.dp)) {
 
-            Text(text = "name: " + exercise.name)
-            Text(text = "muscle: " + exercise.bodyPart)
+                Text(text = "name: " + exercise.name)
+                Text(text = "muscle: " + exercise.bodyPart)
+            }
+            Text(text = exercise.id, modifier = Modifier.padding(end = 8.dp))
         }
-        Text(text = exercise.id, modifier = Modifier.padding(end = 8.dp))
     }
+
 
 }
