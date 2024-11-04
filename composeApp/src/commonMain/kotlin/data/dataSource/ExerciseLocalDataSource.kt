@@ -39,4 +39,8 @@ class ExerciseLocalDataSource(
         db.getDao().insertExercise(exercise)
     }
 
+    suspend fun deleteExercise(exercise: Exercise) {
+        db.getDao().deleteExercise(exercise)
+    }
+
 }

@@ -2,6 +2,7 @@ package domain.interactor
 
 import ExerciseRepository
 import data.local.entity.DayWithExercises
+import data.local.entity.Exercise
 import kotlinx.coroutines.flow.Flow
 
 class ProgramInteractor(
@@ -11,4 +12,6 @@ class ProgramInteractor(
     fun getDays() : Flow<List<DayWithExercises>> = repository.getExercisesFromLocal()
 
     fun getDayWithExercises(day: Int) : Flow<DayWithExercises> = repository.getDayWithExercises(day)
+
+    suspend fun deleteExercise(exercise: Exercise) = repository.deleteExercise(exercise)
 }

@@ -3,6 +3,7 @@ package ui.program_detail
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import data.local.entity.DayWithExercises
+import data.local.entity.Exercise
 import domain.interactor.ProgramInteractor
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.IO
@@ -23,5 +24,11 @@ class ProgramDetailViewModel(
                  _dayDetail.emit(it)
              }
          }
+    }
+
+    fun deleteExercise(exercise: Exercise) {
+        viewModelScope.launch(Dispatchers.IO) {
+            interactor.deleteExercise(exercise)
+        }
     }
 }
