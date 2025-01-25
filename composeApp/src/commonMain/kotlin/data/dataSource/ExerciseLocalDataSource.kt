@@ -6,11 +6,20 @@ import data.local.entity.DayWithExercises
 import data.local.entity.Exercise
 import kotlinx.coroutines.flow.Flow
 
-class ExerciseLocalDataSource(
-    private val db : AppDatabase
-) {
+interface ExerciseLocalDataSource {
+    suspend fun insertDays()
+    fun getExercises() : Flow<List<DayWithExercises>>
+    fun getDayWithExercises(dayId : Int) : Flow<DayWithExercises>
+    suspend fun insertExercise(exercise: Exercise)
+    suspend fun deleteExercise(exercise: Exercise)
 
-    suspend fun insertDays() {
+}
+
+class ExerciseLocalDataSourceImp(
+    private val db : AppDatabase
+) : ExerciseLocalDataSource {
+
+    override suspend fun insertDays() {
         val daysCount = db.getDao().getDaysCount()
 
         if (daysCount == 0) { // Eğer gün yoksa
@@ -27,19 +36,19 @@ class ExerciseLocalDataSource(
         }
     }
 
-     fun getExercises() : Flow<List<DayWithExercises>> {
+    override fun getExercises() : Flow<List<DayWithExercises>> {
         return db.getDao().getAllDaysWithExercises()
     }
 
-    fun getDayWithExercises(dayId : Int) : Flow<DayWithExercises> {
+    override fun getDayWithExercises(dayId : Int) : Flow<DayWithExercises> {
         return db.getDao().getDayWithExercises(dayId)
     }
 
-    suspend fun insertExercise(exercise: Exercise) {
+    override suspend fun insertExercise(exercise: Exercise) {
         db.getDao().insertExercise(exercise)
     }
 
-    suspend fun deleteExercise(exercise: Exercise) {
+    override suspend fun deleteExercise(exercise: Exercise) {
         db.getDao().deleteExercise(exercise)
     }
 

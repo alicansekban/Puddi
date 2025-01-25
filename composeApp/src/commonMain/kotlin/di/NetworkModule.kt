@@ -18,8 +18,8 @@ val provideHttpClientModule = module {
         HttpClient {
             defaultRequest {
                 url(Constants.BASE_URL)
-                header("x-rapidapi-key", Constants.API_KEY)
-                header("x-rapidapi-host", Constants.API_HOST)
+                header(Constants.API_KEY_NAME, Constants.API_KEY)
+                header(Constants.API_HOST_NAME, Constants.API_HOST)
             }
             install(Logging) {
                 logger = Logger.SIMPLE

@@ -1,9 +1,10 @@
 package di
 
-import ExerciseRepository
+import data.repository.ExerciseRepository
+import data.repository.ExerciseRepositoryImpl
 import org.koin.dsl.module
 
 val provideRepositoryModule = module {
-    single<ExerciseRepository> { ExerciseRepository(get(),get()) }
+    single<ExerciseRepository> { ExerciseRepositoryImpl(get(),get()) }
 
 }

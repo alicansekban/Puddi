@@ -1,6 +1,6 @@
 package domain.interactor
 
-import ExerciseRepository
+import data.repository.ExerciseRepository
 import data.local.entity.DayWithExercises
 import data.local.entity.Exercise
 import kotlinx.coroutines.flow.Flow

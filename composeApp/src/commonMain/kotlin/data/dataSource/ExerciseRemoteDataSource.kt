@@ -1,10 +1,14 @@
 package data.dataSource
 
 import data.remote.ExerciseApiService
+import data.response.ExerciseResponseItem
+import utils.ResultWrapper
 
-
-class ExerciseRemoteDataSource(
+interface ExerciseRemoteDataSource {
+    suspend fun getExercise(limit : Int) : ResultWrapper<List<ExerciseResponseItem>>
+}
+class ExerciseRemoteDataSourceImpl(
     private val apiService: ExerciseApiService
-) {
-   suspend fun getExercise(limit : Int) = apiService.getExerciseList(limit)
+) : ExerciseRemoteDataSource{
+   override suspend fun getExercise(limit : Int) = apiService.getExerciseList(limit)
 }
